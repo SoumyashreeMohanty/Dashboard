@@ -21,7 +21,7 @@ const Header = () => {
         <div className="profile">
 
           <img
-            src="https://i.pravatar.cc/40"
+            src="https://i.pinimg.com/736x/43/50/2c/43502c6cfcf9ae0a8713a4ffd9bf95a3.jpg"
             alt="user"
             className="profile-img"
           />
