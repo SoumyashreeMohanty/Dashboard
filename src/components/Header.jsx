@@ -1,22 +1,23 @@
 import { Bell } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+      const navigate = useNavigate();
   return (
+
     <div className="header">
 
       <input
         type="text"
-        placeholder="Search AI tools and models..."
+        placeholder="Search... "
         className="search-input"
       />
 
       <div className="header-right">
 
-        <button className="campaign-btn">
-          + New Campaign
-        </button>
+       
 
-        <Bell size={20} />
+        <Bell size={18} />
 
         <div className="profile">
 
@@ -45,3 +46,5 @@ const Header = () => {
 };
 
 export default Header;
+
+
