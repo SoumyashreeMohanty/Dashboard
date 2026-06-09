@@ -5,7 +5,9 @@ import {
   ChevronDown,
   Mail,
   Copy,
+   ChevronUp,
 } from "lucide-react";
+
 
 import CalendarPage from "../Pages/CalendarPage";
 
@@ -42,6 +44,19 @@ const allCampaigns = [
   { id: 14, name: "Order Confirmation WA",   type: "Whatsapp",         status: "Ongoing",   date: "Fri, May 22, 2026", rawDate: "2026-05-22", sendTo: "Customers" },
 ];
 
+
+const [campaigns, setCampaigns] = useState(allCampaigns);
+
+
+const [openActionMenu, setOpenActionMenu] = useState(null);
+
+const [showRenameModal, setShowRenameModal] = useState(false);
+
+const [selectedCampaign, setSelectedCampaign] = useState(null);
+
+const [newName, setNewName] = useState("");
+
+
 const toggleType = (type) => {
   setSelectedTypes((prev) =>
     prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
@@ -55,7 +70,7 @@ const toggleStatus = (status) => {
 };
 
 
-const filteredCampaigns = allCampaigns.filter((c) => {
+  const filteredCampaigns = campaigns.filter((c) => {
   const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(c.type);
   const statusMatch = selectedStatuses.length === 0 || selectedStatuses.includes(c.status);
 
@@ -85,6 +100,32 @@ const filteredCampaigns = allCampaigns.filter((c) => {
 
   return typeMatch && statusMatch && dateMatch;
 });
+
+const handleRename = () => {
+  setCampaigns(
+    campaigns.map((campaign) =>
+      campaign.id === selectedCampaign.id
+        ? { ...campaign, name: newName }
+        : campaign
+    )
+  );
+
+  setShowRenameModal(false);
+  setSelectedCampaign(null);
+  setNewName("");
+};
+
+const handleDelete = (id) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this campaign?"
+  );
+
+  if (confirmDelete) {
+    setCampaigns(
+      campaigns.filter((campaign) => campaign.id !== id)
+    );
+  }
+};
   return (
     <div className="campaign-page">
       {/* TOP HEADER */}
@@ -419,9 +460,40 @@ const filteredCampaigns = allCampaigns.filter((c) => {
       <div>{item.sendTo}</div>
       <div>—</div>
       <div className="actions">
-        <button>Edit</button>
-        <Copy size={18} />
+  <div className="edit-action-group">
+    <button className="edit-btn">Edit</button>
+    <button
+      className="edit-arrow-btn"
+      onClick={(e) => {
+        e.stopPropagation();
+        setOpenActionMenu(openActionMenu === item.id ? null : item.id);
+      }}
+    >
+      ▲
+    </button>
+
+    {openActionMenu === item.id && (
+      <div className="action-dropdown">
+        <div
+  className="action-option"
+  onClick={() => {
+    setSelectedCampaign(item);
+    setNewName(item.name);
+    setShowRenameModal(true);
+    setOpenActionMenu(null);
+  }}
+>
+  Rename
+</div>
+        <div className="action-option action-delete" onClick={() => handleDelete(item.id)}>
+         Delete
+        </div>
       </div>
+    )}
+  </div>
+
+  <Copy size={18} style={{ cursor: "pointer" }} />
+</div>
     </div>
   ))
 )}
@@ -431,6 +503,36 @@ const filteredCampaigns = allCampaigns.filter((c) => {
 
   <CalendarPage />
 
+)}
+
+{showRenameModal && (
+  <div className="modal-overlay">
+    <div className="rename-modal">
+
+      <h3>Rename Campaign</h3>
+
+      <input
+        type="text"
+        value={newName}
+        onChange={(e) => setNewName(e.target.value)}
+      />
+
+      <div className="modal-actions">
+
+        <button
+          onClick={() => setShowRenameModal(false)}
+        >
+          Cancel
+        </button>
+
+        <button onClick={handleRename}>
+          Save
+        </button>
+
+      </div>
+
+    </div>
+  </div>
 )}
 
 </div>

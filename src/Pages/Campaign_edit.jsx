@@ -17,6 +17,7 @@ const [previewText, setPreviewText] = useState("");
 const [showSendTimeDropdown, setShowSendTimeDropdown] = useState(false);
 const [sendTimeOption, setSendTimeOption] = useState("now"); // "now" or "schedule"
 const [showSocialModal, setShowSocialModal] = useState(false);
+const [openActionMenu, setOpenActionMenu] = useState(null);
   const completedItems = [
     true, // To
     true, // From
