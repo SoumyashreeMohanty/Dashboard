@@ -27,6 +27,20 @@ If you are developing a production application, we recommend using TypeScript wi
 * Explored styling options such as Global CSS, CSS Modules, Tailwind CSS, and DaisyUI.
 * Learned the differences between JSX and TSX and the advantages of using TypeScript in Next.js projects.
 
+**Next.js Learning Update**
+
+* Continued migration of the existing React.js project to Next.js.
+* Set up the Next.js project structure and configured shared layouts using `layout.tsx`.
+* Migrated Dashboard components including Header, Sidebar, Audience Card, Small Cards, and Template Section.
+* Created and integrated the Campaign page in Next.js.
+* Worked on page navigation between Dashboard and Campaign pages using `next/navigation`.
+* Added sidebar collapse/minimize functionality and implemented active menu highlighting.
+* Added a "Coming Soon" badge for the AI Hub menu item.
+* Migrated existing React CSS into Next.js global styles and worked on fixing dashboard, campaign page, and template section styling issues.
+* Resolved component import/export issues, module path errors, routing issues, and CSS rendering problems during migration.
+* Improved understanding of Next.js routing, layouts, component structure, page-based navigation, and React-to-Next.js migration workflow.
+
+
 
 
 
